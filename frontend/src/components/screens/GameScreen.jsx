@@ -103,6 +103,16 @@ const GameScreen = ({ onQuit }) => {
     }, GAME_CONFIG.PLACEMENT_DURATION);
   };
 
+  const handleLevelComplete = () => {
+    // Level completed! Move to next level
+    if (currentLevel < GAME_CONFIG.LEVELS.length - 1) {
+      // More levels to go
+      setTimeout(() => {
+        // This will be handled by the game state hook
+      }, 100);
+    }
+  };
+
   const handleGameOver = () => {
     playerMovement.exitPointerLock();
     endGame('Du wurdest von einem Regierungsbeamten verhaftet!');
