@@ -262,6 +262,7 @@ const Scene = ({
       {/* Environment - Simple background color */}
       <color attach="background" args={['#0A0F14']} />
       <SimpleStars />
+      <AmbientSparkles count={30} />
       
       <Ground />
       <Street />
