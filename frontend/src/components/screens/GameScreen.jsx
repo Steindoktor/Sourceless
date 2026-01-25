@@ -156,6 +156,7 @@ const GameScreen = ({ onQuit }) => {
             houses={sceneData.houses}
             npcs={sceneData.npcs}
             onlineHouses={sceneData.onlineHouses}
+            levelName={levelName}
           />
         </>
       )}
