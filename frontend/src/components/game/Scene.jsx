@@ -73,13 +73,13 @@ const Scene = ({
   gameState,
   onInteract,
   currentLevel,
-  highlightedHouse,
   onGameOver,
-  setHighlightedHouse,
+  onHighlightChange,
 }) => {
   const [houses, setHouses] = useState([]);
   const [npcs, setNpcs] = useState([]);
   const [onlineHouses, setOnlineHouses] = useState(new Set());
+  const [highlightedHouse, setHighlightedHouse] = useState(null);
   const interactKeyPressed = useRef(false);
 
   // Generate houses based on level
