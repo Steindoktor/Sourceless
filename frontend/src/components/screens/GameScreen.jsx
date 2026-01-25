@@ -123,9 +123,9 @@ const GameScreen = ({ onQuit }) => {
     const moveSpeed = GAME_CONFIG.PLAYER.SPEED * delta * (mobileSprintActive ? GAME_CONFIG.PLAYER.SPRINT_MULTIPLIER : 1);
     
     const velocity = new THREE.Vector3(
-      joystickData.x * moveSpeed * joystickData.magnitude,
+      joystickData.x * moveSpeed * joystickData.magnitude,  // X: Links/Rechts
       0,
-      -joystickData.y * moveSpeed * joystickData.magnitude
+      joystickData.y * moveSpeed * joystickData.magnitude  // Z: Vor/Zurück (OHNE Minus!)
     );
     
     // Apply rotation
