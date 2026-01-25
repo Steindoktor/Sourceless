@@ -75,6 +75,7 @@ const Scene = ({
   currentLevel,
   highlightedHouse,
   onGameOver,
+  setHighlightedHouse,
 }) => {
   const [houses, setHouses] = useState([]);
   const [npcs, setNpcs] = useState([]);
