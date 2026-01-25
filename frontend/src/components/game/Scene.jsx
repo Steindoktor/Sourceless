@@ -236,7 +236,15 @@ const Scene = ({
   const [switchActive, setSwitchActive] = useState(false);
   const [showSwitch, setShowSwitch] = useState(false);
   const interactKeyPressed = useRef(false);
-  const switchPosition = new THREE.Vector3(0, 0, -20); // Zentrale Position
+  
+  // Schalter-Position abhängig vom Level
+  const switchPosition = useMemo(() => {
+    if (currentLevel === 0) {
+      return new THREE.Vector3(0, 0, -20); // Zentral für Level 1
+    } else {
+      return new THREE.Vector3(0, 0, 0); // Stadtmitte für Level 2+
+    }
+  }, [currentLevel]);
 
   // Update parent with scene data for minimap
   useEffect(() => {
