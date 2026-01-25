@@ -2,7 +2,7 @@ import React from 'react';
 import { Progress } from '@/components/ui/progress';
 import { GAME_CONFIG } from '@/utils/gameConstants';
 
-const HUD = ({ score, levelName, progress, isPlacing, highlightedHouse }) => {
+const HUD = ({ score, levelName, progress, isPlacing, highlightedHouse, showSwitchHint }) => {
   return (
     <div className="fixed inset-0 pointer-events-none">
       {/* Top Left - Score */}
