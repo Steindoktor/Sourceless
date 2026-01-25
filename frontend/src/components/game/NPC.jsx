@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { GAME_CONFIG } from '@/utils/gameConstants';
 import * as THREE from 'three';
+import { NPCTrailParticles } from './ParticleEffects';
+import soundManager from '@/utils/soundManager';
 
 const NPC = ({ position, playerPosition, onArrest, speedMultiplier = 1, npcId }) => {
   const npcRef = useRef();
@@ -10,6 +12,7 @@ const NPC = ({ position, playerPosition, onArrest, speedMultiplier = 1, npcId })
   const [arrestTimer, setArrestTimer] = useState(0);
   const patrolPoints = useRef([]);
   const currentPatrolIndex = useRef(0);
+  const hasPlayedAlertSound = useRef(false);
 
   // Initialize patrol points
   useEffect(() => {
