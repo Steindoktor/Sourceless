@@ -73,7 +73,13 @@ const Minimap = ({ playerPosition, houses, npcs, onlineHouses, levelName }) => {
   }, [playerPosition, houses, npcs, onlineHouses]);
   
   return (
-    <div className="absolute top-6 right-6 pointer-events-none">
+    <div className="absolute top-6 right-6 pointer-events-none z-10">
+      {/* Level display above minimap */}
+      <div className="bg-black/80 backdrop-blur-sm border-2 border-[#00FF88] rounded-lg px-4 py-2 mb-2">
+        <div className="text-xs text-gray-400 font-medium text-center">Level</div>
+        <div className="text-xl font-bold text-[#00FF88] text-center">{levelName}</div>
+      </div>
+      
       <div className="bg-black/80 backdrop-blur-sm border-2 border-[#00FF88] rounded-lg p-2">
         <canvas 
           ref={canvasRef} 
