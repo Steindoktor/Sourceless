@@ -106,12 +106,7 @@ const GameScreen = ({ onQuit }) => {
 
   const handleLevelComplete = () => {
     // Level completed! Move to next level
-    if (currentLevel < GAME_CONFIG.LEVELS.length - 1) {
-      // More levels to go
-      setTimeout(() => {
-        // This will be handled by the game state hook
-      }, 100);
-    }
+    completeLevel();
   };
 
   const handleGameOver = () => {
