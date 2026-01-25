@@ -32,8 +32,8 @@ const House = ({ position, type, isOnline, isHighlighted, onInteract, houseId, i
     }
   });
 
-  const houseColor = isOnline ? GAME_CONFIG.COLORS.PRIMARY_GREEN : '#888888'; // Viel heller: von #333333 zu #888888
-  const emissiveIntensity = isOnline ? 0.4 : 0.1; // Offline-Häuser haben jetzt auch leichtes Glow
+  const houseColor = isGolden ? '#FFD700' : (isOnline ? GAME_CONFIG.COLORS.PRIMARY_GREEN : '#888888');
+  const emissiveIntensity = isGolden ? 0.8 : (isOnline ? 0.4 : 0.1);
 
   // House variants
   const variants = [
