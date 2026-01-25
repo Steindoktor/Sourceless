@@ -494,7 +494,7 @@ const Scene = ({
       <SimpleStars />
       <AmbientSparkles count={30} />
       
-      <Ground />
+      <Ground level={currentLevel} />
       <Street level={currentLevel} />
 
       {/* Player */}
