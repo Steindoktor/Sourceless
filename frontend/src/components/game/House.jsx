@@ -71,9 +71,9 @@ const House = ({ position, type, isOnline, isHighlighted, onInteract, houseId, i
           <mesh position={[xOffset, variant.height * 0.6, variant.depth / 2 + 0.01]}>
             <boxGeometry args={[0.5, 0.6, 0.1]} />
             <meshStandardMaterial 
-              color={isOnline ? '#FFFF88' : '#555555'}
-              emissive={isOnline ? '#FFFF88' : '#333333'}
-              emissiveIntensity={isOnline ? 0.8 : 0.3}
+              color={isGolden ? '#FFFF00' : (isOnline ? '#FFFF88' : '#555555')}
+              emissive={isGolden ? '#FFFF00' : (isOnline ? '#FFFF88' : '#333333')}
+              emissiveIntensity={isGolden ? 1.0 : (isOnline ? 0.8 : 0.3)}
             />
           </mesh>
         </React.Fragment>
