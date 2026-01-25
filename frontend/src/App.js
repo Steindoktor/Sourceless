@@ -3,6 +3,7 @@ import '@/App.css';
 import MainMenu from '@/components/screens/MainMenu';
 import GameScreen from '@/components/screens/GameScreen';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import DevToolsSuppressor from '@/components/DevToolsSuppressor';
 
 function App() {
   const [screen, setScreen] = useState('menu'); // menu, game
@@ -16,16 +17,18 @@ function App() {
   };
 
   return (
-    <ErrorBoundary>
-      <div className="App">
-        {screen === 'menu' && (
-          <MainMenu onStart={handleStartGame} />
-        )}
-        {screen === 'game' && (
-          <GameScreen onQuit={handleQuitToMenu} />
-        )}
-      </div>
-    </ErrorBoundary>
+    <DevToolsSuppressor>
+      <ErrorBoundary>
+        <div className="App">
+          {screen === 'menu' && (
+            <MainMenu onStart={handleStartGame} />
+          )}
+          {screen === 'game' && (
+            <GameScreen onQuit={handleQuitToMenu} />
+          )}
+        </div>
+      </ErrorBoundary>
+    </DevToolsSuppressor>
   );
 }
 
