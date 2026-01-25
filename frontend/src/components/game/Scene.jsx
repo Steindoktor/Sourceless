@@ -194,13 +194,8 @@ const Scene = ({
       />
       <pointLight position={[0, 10, 0]} intensity={0.5} />
 
-      {/* Environment */}
-      <Sky 
-        distance={450000}
-        sunPosition={[0, 1, 0]}
-        inclination={0.6}
-        azimuth={0.25}
-      />
+      {/* Environment - Simple background color */}
+      <color attach="background" args={['#0A0F14']} />
       <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
       
       <Ground />
