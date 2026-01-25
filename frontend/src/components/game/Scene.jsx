@@ -277,7 +277,7 @@ const Scene = ({
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, [highlightedHouse, onInteract, gameState, onlineHouses]);
+  }, [highlightedHouse, onInteract, gameState, onlineHouses, showSwitch, switchActive, goldenHouses, playerPosition, currentLevel, onLevelComplete]);
 
   // Check for nearby houses (highlight detection)
   useFrame(() => {
