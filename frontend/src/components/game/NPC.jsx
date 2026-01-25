@@ -41,11 +41,18 @@ const NPC = ({ position, playerPosition, onArrest, speedMultiplier = 1, npcId })
     } else if (distanceToPlayer < GAME_CONFIG.NPC.DETECTION_RANGE) {
       if (state !== 'chase' && state !== 'arrest') {
         setState('chase');
+        hasPlayedAlertSound.current = false;
+      }
+      // Play alert sound once when starting chase
+      if (state === 'chase' && !hasPlayedAlertSound.current) {
+        soundManager.playNPCAlert();
+        hasPlayedAlertSound.current = true;
       }
     } else {
       if (state === 'chase' || state === 'arrest') {
         setState('patrol');
         setArrestTimer(0);
+        hasPlayedAlertSound.current = false;
       }
     }
 
