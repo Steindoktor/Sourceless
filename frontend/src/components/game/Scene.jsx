@@ -6,6 +6,45 @@ import House from './House';
 import NPC from './NPC';
 import { GAME_CONFIG, KEYBOARD_KEYS } from '@/utils/gameConstants';
 
+const SimpleStars = () => {
+  const starsRef = useRef();
+  
+  const starPositions = useMemo(() => {
+    const positions = new Float32Array(3000);
+    for (let i = 0; i < 1000; i++) {
+      const i3 = i * 3;
+      const radius = 50 + Math.random() * 50;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.random() * Math.PI;
+      
+      positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i3 + 1] = radius * Math.cos(phi);
+      positions[i3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
+    }
+    return positions;
+  }, []);
+
+  return (
+    <points ref={starsRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={starPositions.length / 3}
+          array={starPositions}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.1}
+        color="#ffffff"
+        sizeAttenuation={true}
+        transparent={true}
+        opacity={0.8}
+      />
+    </points>
+  );
+};
+
 const CameraController = ({ playerPosition, playerRotation }) => {
   const { camera } = useThree();
 
