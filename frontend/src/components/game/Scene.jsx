@@ -184,6 +184,9 @@ const Scene = ({
     setHouses(newHouses);
     // Reset online houses when level changes
     setOnlineHouses(new Set());
+    setGoldenHouses(false);
+    setSwitchActive(false);
+    setShowSwitch(false);
 
     // Generate NPCs
     const newNpcs = [];
