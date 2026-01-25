@@ -17,21 +17,25 @@ const HUD = ({ score, levelName, progress, isPlacing, highlightedHouse, showSwit
 
       {/* Center - Crosshair & Interaction */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        {/* Crosshair */}
-        <div className="relative w-8 h-8">
-          <div className="absolute top-1/2 left-0 w-2 h-0.5 bg-white/60 transform -translate-y-1/2" />
-          <div className="absolute top-1/2 right-0 w-2 h-0.5 bg-white/60 transform -translate-y-1/2" />
-          <div className="absolute top-0 left-1/2 w-0.5 h-2 bg-white/60 transform -translate-x-1/2" />
-          <div className="absolute bottom-0 left-1/2 w-0.5 h-2 bg-white/60 transform -translate-x-1/2" />
-          <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2" />
-        </div>
+        {/* Crosshair - nur auf Desktop */}
+        {!isMobile && (
+          <div className="relative w-8 h-8">
+            <div className="absolute top-1/2 left-0 w-2 h-0.5 bg-white/60 transform -translate-y-1/2" />
+            <div className="absolute top-1/2 right-0 w-2 h-0.5 bg-white/60 transform -translate-y-1/2" />
+            <div className="absolute top-0 left-1/2 w-0.5 h-2 bg-white/60 transform -translate-x-1/2" />
+            <div className="absolute bottom-0 left-1/2 w-0.5 h-2 bg-white/60 transform -translate-x-1/2" />
+            <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2" />
+          </div>
+        )}
         
         {/* Interaction hint */}
         {highlightedHouse && (
-          <div className="absolute top-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-            <div className="bg-black/90 backdrop-blur-sm border border-[#00FF88] rounded-lg px-4 py-2">
-              <span className="text-[#00FF88] font-bold">[E / Leertaste]</span>
-              <span className="text-white ml-2">Internet-Kasten anbringen</span>
+          <div className={`absolute ${isMobile ? 'top-8' : 'top-12'} left-1/2 transform -translate-x-1/2 whitespace-nowrap`}>
+            <div className={`bg-black/90 backdrop-blur-sm border border-[#00FF88] rounded-lg ${isMobile ? 'px-3 py-1' : 'px-4 py-2'}`}>
+              <span className={`text-[#00FF88] font-bold ${isMobile ? 'text-sm' : ''}`}>
+                {isMobile ? '[Grüner Button]' : '[E / Leertaste]'}
+              </span>
+              <span className={`text-white ml-2 ${isMobile ? 'text-xs' : ''}`}>Internet-Kasten anbringen</span>
             </div>
           </div>
         )}
