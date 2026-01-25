@@ -57,7 +57,7 @@ const MainMenu = ({ onStart }) => {
           <h3 className="text-[#00FF88] font-bold text-lg mb-4">Anleitung</h3>
           <div className="space-y-2 text-gray-300 text-sm">
             <p>• Laufe mit <span className="text-[#00FF88] font-bold">WASD</span> durch die Stadt</p>
-            <p>• Drücke <span className="text-[#00FF88] font-bold">E</span> in der Nähe eines Hauses, um einen Internet-Kasten anzubringen</p>
+            <p>• Drücke <span className="text-[#00FF88] font-bold">E oder Leertaste</span> in der Nähe eines Hauses, um einen Internet-Kasten anzubringen</p>
             <p>• Vermeide die Regierungsbeamten (rote Figuren)</p>
             <p>• Erreiche das Ziel jedes Levels, um aufzusteigen</p>
             <p>• <span className="text-[#00FF88] font-bold">Shift</span> für Sprint verwenden</p>
