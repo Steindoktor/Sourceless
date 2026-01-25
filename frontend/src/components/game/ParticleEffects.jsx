@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 // Particle system for house connection effect
-export const HouseConnectionParticles = ({ position, active }) => {
+export const HouseConnectionParticles = ({ position, active, isGolden }) => {
   const particlesRef = useRef();
   const particleCount = 30;
   
@@ -74,7 +74,7 @@ export const HouseConnectionParticles = ({ position, active }) => {
       </bufferGeometry>
       <pointsMaterial
         size={0.15}
-        color="#00FF88"
+        color={isGolden ? "#FFD700" : "#00FF88"}
         transparent
         opacity={0.8}
         sizeAttenuation
