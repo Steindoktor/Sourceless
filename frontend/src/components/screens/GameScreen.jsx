@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
+import * as THREE from 'three';
 import Scene from '../game/Scene';
 import HUD from '../hud/HUD';
 import PauseMenu from './PauseMenu';
