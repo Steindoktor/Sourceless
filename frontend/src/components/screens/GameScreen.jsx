@@ -150,6 +150,7 @@ const GameScreen = ({ onQuit }) => {
           onInteract={handleInteract}
           onGameOver={handleGameOver}
           onSceneDataUpdate={setSceneData}
+          onLevelComplete={handleLevelComplete}
         />
       </Canvas>
 
