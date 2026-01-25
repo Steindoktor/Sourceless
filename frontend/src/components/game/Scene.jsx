@@ -177,8 +177,9 @@ const Scene = ({
     });
 
     if (closestHouse !== highlightedHouse) {
-      if (setHighlightedHouse) {
-        setHighlightedHouse(closestHouse);
+      setHighlightedHouse(closestHouse);
+      if (onHighlightChange) {
+        onHighlightChange(closestHouse);
       }
     }
   });
