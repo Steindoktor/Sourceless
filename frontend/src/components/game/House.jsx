@@ -123,7 +123,7 @@ const House = ({ position, type, isOnline, isHighlighted, onInteract, houseId, i
       )}
 
       {/* Particle effects when house goes online */}
-      <HouseConnectionParticles position={position} active={showParticles} />
+      <HouseConnectionParticles position={position} active={showParticles} isGolden={isGolden} />
     </group>
   );
 };
