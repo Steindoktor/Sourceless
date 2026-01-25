@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
+import { GAME_CONFIG } from '@/utils/gameConstants';
 
-const Minimap = ({ playerPosition, houses, npcs, onlineHouses }) => {
+const Minimap = ({ playerPosition, houses, npcs, onlineHouses, levelName }) => {
   const canvasRef = useRef(null);
   
   useEffect(() => {
