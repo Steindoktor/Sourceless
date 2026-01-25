@@ -162,6 +162,7 @@ const GameScreen = ({ onQuit }) => {
             progress={progress}
             isPlacing={isPlacing}
             highlightedHouse={highlightedHouse}
+            showSwitchHint={sceneData.showSwitch}
           />
           <Minimap
             playerPosition={playerMovement.position}
