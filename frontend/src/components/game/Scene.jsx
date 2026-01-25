@@ -129,12 +129,20 @@ const Scene = ({
   currentLevel,
   onGameOver,
   onHighlightChange,
+  onSceneDataUpdate,
 }) => {
   const [houses, setHouses] = useState([]);
   const [npcs, setNpcs] = useState([]);
   const [onlineHouses, setOnlineHouses] = useState(new Set());
   const [highlightedHouse, setHighlightedHouse] = useState(null);
   const interactKeyPressed = useRef(false);
+
+  // Update parent with scene data for minimap
+  useEffect(() => {
+    if (onSceneDataUpdate) {
+      onSceneDataUpdate({ houses, npcs, onlineHouses });
+    }
+  }, [houses, npcs, onlineHouses, onSceneDataUpdate]);
 
   // Generate houses based on level
   useEffect(() => {
