@@ -267,14 +267,23 @@ const Scene = ({
 
   return (
     <>
-      {/* Lighting */}
-      <ambientLight intensity={0.3} />
+      {/* Lighting - verstärkt für bessere Sichtbarkeit */}
+      <ambientLight intensity={0.5} />
       <directionalLight 
         position={[10, 20, 10]} 
-        intensity={0.8}
+        intensity={1.2}
         castShadow
       />
-      <pointLight position={[0, 10, 0]} intensity={0.5} />
+      <directionalLight 
+        position={[-10, 15, -10]} 
+        intensity={0.6}
+      />
+      <pointLight position={[0, 10, 0]} intensity={0.8} />
+      <hemisphereLight 
+        skyColor="#ffffff"
+        groundColor="#444444"
+        intensity={0.5}
+      />
 
       {/* Environment - Simple background color */}
       <color attach="background" args={['#0A0F14']} />
