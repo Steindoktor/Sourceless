@@ -6,8 +6,11 @@ import HUD from '../hud/HUD';
 import Minimap from '../hud/Minimap';
 import PauseMenu from './PauseMenu';
 import GameOver from './GameOver';
+import VirtualJoystick from '../mobile/VirtualJoystick';
+import MobileControls from '../mobile/MobileControls';
 import { usePlayerMovement } from '@/hooks/usePlayerMovement';
 import { useGameState } from '@/hooks/useGameState';
+import { useMobileDetection } from '@/hooks/useMobileDetection';
 import { GAME_CONFIG, KEYBOARD_KEYS } from '@/utils/gameConstants';
 import soundManager from '@/utils/soundManager';
 
