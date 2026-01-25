@@ -118,8 +118,7 @@ const GameScreen = ({ onQuit }) => {
           playerRotation={playerMovement.rotation}
           gameState={gameState}
           currentLevel={currentLevel}
-          highlightedHouse={highlightedHouse}
-          setHighlightedHouse={setHighlightedHouse}
+          onHighlightChange={setHighlightedHouse}
           onInteract={handleInteract}
           onGameOver={handleGameOver}
         />
