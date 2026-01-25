@@ -75,21 +75,21 @@ const Minimap = ({ playerPosition, houses, npcs, onlineHouses, levelName, isMobi
   }, [playerPosition, houses, npcs, onlineHouses]);
   
   return (
-    <div className="absolute top-6 right-6 pointer-events-none z-10">
+    <div className={`absolute ${isMobile ? 'top-3 right-3' : 'top-6 right-6'} pointer-events-none z-10`}>
       {/* Level display above minimap */}
-      <div className="bg-black/80 backdrop-blur-sm border-2 border-[#00FF88] rounded-lg px-4 py-2 mb-2">
-        <div className="text-xs text-gray-400 font-medium text-center">Level</div>
-        <div className="text-xl font-bold text-[#00FF88] text-center">{levelName}</div>
+      <div className={`bg-black/80 backdrop-blur-sm border-2 border-[#00FF88] rounded-lg ${isMobile ? 'px-2 py-1 mb-1' : 'px-4 py-2 mb-2'}`}>
+        <div className={`${isMobile ? 'text-[10px]' : 'text-xs'} text-gray-400 font-medium text-center`}>Level</div>
+        <div className={`${isMobile ? 'text-sm' : 'text-xl'} font-bold text-[#00FF88] text-center`}>{levelName}</div>
       </div>
       
-      <div className="bg-black/80 backdrop-blur-sm border-2 border-[#00FF88] rounded-lg p-2">
+      <div className={`bg-black/80 backdrop-blur-sm border-2 border-[#00FF88] rounded-lg ${isMobile ? 'p-1' : 'p-2'}`}>
         <canvas 
           ref={canvasRef} 
-          width={150} 
-          height={150}
+          width={canvasSize} 
+          height={canvasSize}
           className="block"
         />
-        <div className="text-xs text-[#00FF88] text-center mt-1 font-mono">
+        <div className={`${isMobile ? 'text-[10px]' : 'text-xs'} text-[#00FF88] text-center mt-1 font-mono`}>
           Minimap
         </div>
       </div>
