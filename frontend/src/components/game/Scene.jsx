@@ -131,12 +131,17 @@ const Scene = ({
   onGameOver,
   onHighlightChange,
   onSceneDataUpdate,
+  onLevelComplete,
 }) => {
   const [houses, setHouses] = useState([]);
   const [npcs, setNpcs] = useState([]);
   const [onlineHouses, setOnlineHouses] = useState(new Set());
   const [highlightedHouse, setHighlightedHouse] = useState(null);
+  const [goldenHouses, setGoldenHouses] = useState(false);
+  const [switchActive, setSwitchActive] = useState(false);
+  const [showSwitch, setShowSwitch] = useState(false);
   const interactKeyPressed = useRef(false);
+  const switchPosition = new THREE.Vector3(0, 0, -20); // Zentrale Position
 
   // Update parent with scene data for minimap
   useEffect(() => {
