@@ -30,7 +30,7 @@ const HUD = ({ score, levelName, progress, isPlacing, highlightedHouse }) => {
         {highlightedHouse && (
           <div className="absolute top-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
             <div className="bg-black/90 backdrop-blur-sm border border-[#00FF88] rounded-lg px-4 py-2">
-              <span className="text-[#00FF88] font-bold">[E]</span>
+              <span className="text-[#00FF88] font-bold">[E / Leertaste]</span>
               <span className="text-white ml-2">Internet-Kasten anbringen</span>
             </div>
           </div>
