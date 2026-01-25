@@ -36,6 +36,7 @@ const GameScreen = ({ onQuit }) => {
   const [highlightedHouse, setHighlightedHouse] = useState(null);
   const [sceneData, setSceneData] = useState({ houses: [], npcs: [], onlineHouses: new Set() });
   const [mobileSprintActive, setMobileSprintActive] = useState(false);
+  const [mobileVelocity, setMobileVelocity] = useState({ x: 0, y: 0, magnitude: 0 });
   const requestAnimationFrameId = useRef(null);
   const lastTime = useRef(performance.now());
   const isMobile = useMobileDetection();
