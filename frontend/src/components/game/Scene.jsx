@@ -166,6 +166,8 @@ const Scene = ({
     }
 
     setHouses(newHouses);
+    // Reset online houses when level changes
+    setOnlineHouses(new Set());
 
     // Generate NPCs
     const newNpcs = [];
