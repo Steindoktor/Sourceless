@@ -58,16 +58,6 @@ const HUD = ({ score, levelName, progress, isPlacing, highlightedHouse }) => {
           </div>
         </div>
       </div>
-
-      {/* Controls hint */}
-      <div className="absolute bottom-8 left-6">
-        <div className="bg-black/70 backdrop-blur-sm border border-gray-600 rounded-lg px-4 py-2 text-xs text-gray-300 space-y-1">
-          <div><span className="text-[#00FF88] font-bold">WASD</span> - Bewegung</div>
-          <div><span className="text-[#00FF88] font-bold">Shift</span> - Sprint</div>
-          <div><span className="text-[#00FF88] font-bold">E</span> - Interagieren</div>
-          <div><span className="text-[#00FF88] font-bold">ESC</span> - Pause</div>
-        </div>
-      </div>
     </div>
   );
 };
