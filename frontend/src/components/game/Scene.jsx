@@ -196,6 +196,13 @@ const Scene = ({
         
         if (highlightedHouse && !onlineHouses.has(highlightedHouse.id)) {
           setOnlineHouses(prev => new Set([...prev, highlightedHouse.id]));
+          
+          // Play sounds
+          soundManager.playPlacement();
+          setTimeout(() => {
+            soundManager.playHouseOnline();
+          }, 800);
+          
           onInteract();
         }
       }
