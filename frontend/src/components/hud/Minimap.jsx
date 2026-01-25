@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { GAME_CONFIG } from '@/utils/gameConstants';
 
-const Minimap = ({ playerPosition, houses, npcs, onlineHouses, levelName }) => {
+const Minimap = ({ playerPosition, houses, npcs, onlineHouses, levelName, isMobile }) => {
   const canvasRef = useRef(null);
+  
+  const canvasSize = isMobile ? 100 : 150;
   
   useEffect(() => {
     const canvas = canvasRef.current;
