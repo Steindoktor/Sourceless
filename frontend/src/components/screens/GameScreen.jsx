@@ -114,6 +114,38 @@ const GameScreen = ({ onQuit }) => {
     completeLevel();
   };
 
+  // Mobile joystick handler
+  const handleJoystickMove = (joystickData) => {
+    if (gameState !== 'playing') return;
+    
+    // Apply joystick input to player movement
+    const delta = 0.016; // ~60fps
+    const moveSpeed = GAME_CONFIG.PLAYER.SPEED * delta * (mobileSprintActive ? GAME_CONFIG.PLAYER.SPRINT_MULTIPLIER : 1);
+    
+    const velocity = new THREE.Vector3(
+      joystickData.x * moveSpeed * joystickData.magnitude,
+      0,
+      -joystickData.y * moveSpeed * joystickData.magnitude
+    );
+    
+    // Apply rotation
+    const rotatedVelocity = velocity.clone();
+    rotatedVelocity.applyAxisAngle(new THREE.Vector3(0, 1, 0), playerMovement.rotation);
+    
+    playerMovement.setPosition(prev => prev.clone().add(rotatedVelocity));
+  };
+
+  // Mobile interact handler
+  const handleMobileInteract = () => {
+    if (gameState !== 'playing' || !highlightedHouse) return;
+    handleInteract();
+  };
+
+  // Mobile sprint toggle
+  const handleMobileSprint = () => {
+    setMobileSprintActive(prev => !prev);
+  };
+
   const handleGameOver = () => {
     playerMovement.exitPointerLock();
     endGame('Du wurdest von einem Regierungsbeamten verhaftet!');
