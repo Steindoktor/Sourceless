@@ -95,30 +95,125 @@ const Ground = () => {
   );
 };
 
-const Street = () => {
-  return (
-    <>
-      {/* Main street */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, 0]} receiveShadow>
-        <planeGeometry args={[10, 100]} />
-        <meshStandardMaterial 
-          color="#1a1a1a"
-          roughness={0.9}
-        />
-      </mesh>
-      
-      {/* Street markings */}
-      {Array.from({ length: 20 }).map((_, i) => (
-        <mesh 
-          key={i}
-          rotation={[-Math.PI / 2, 0, 0]} 
-          position={[0, 0.02, -40 + i * 4]}
-        >
-          <planeGeometry args={[0.3, 1.5]} />
-          <meshBasicMaterial color="#FFFF00" />
+const Street = ({ level }) => {
+  // Level 1 (STRASSE): Einfache gerade Straße
+  // Level 2+ (STADT, LAND, WELT): Straßennetz mit Kreuzungen
+  
+  if (level === 0) {
+    // Einfache Straße für Level 1
+    return (
+      <>
+        {/* Main street */}
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, 0]} receiveShadow>
+          <planeGeometry args={[10, 100]} />
+          <meshStandardMaterial 
+            color="#1a1a1a"
+            roughness={0.9}
+          />
         </mesh>
-      ))}
-    </>
+        
+        {/* Street markings */}
+        {Array.from({ length: 20 }).map((_, i) => (
+          <mesh 
+            key={i}
+            rotation={[-Math.PI / 2, 0, 0]} 
+            position={[0, 0.02, -40 + i * 4]}
+          >
+            <planeGeometry args={[0.3, 1.5]} />
+            <meshBasicMaterial color="#FFFF00" />
+          </mesh>
+        ))}
+      </>
+    );
+  }
+  
+  // Stadt-Level: Straßennetz
+  const gridSize = level === 1 ? 3 : (level === 2 ? 5 : 7); // STADT: 3x3, LAND: 5x5, WELT: 7x7
+  const streetWidth = 10;
+  const blockSize = 20;
+  const totalSize = gridSize * blockSize;
+  
+  return (
+    <group>
+      {/* Horizontale Straßen */}
+      {Array.from({ length: gridSize + 1 }).map((_, i) => {
+        const zPos = -totalSize / 2 + i * blockSize;
+        return (
+          <React.Fragment key={`h-${i}`}>
+            {/* Straße */}
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, zPos]} receiveShadow>
+              <planeGeometry args={[totalSize, streetWidth]} />
+              <meshStandardMaterial 
+                color="#1a1a1a"
+                roughness={0.9}
+              />
+            </mesh>
+            
+            {/* Mittelstreifen */}
+            {Array.from({ length: Math.floor(totalSize / 4) }).map((_, j) => (
+              <mesh 
+                key={`hm-${i}-${j}`}
+                rotation={[-Math.PI / 2, 0, 0]} 
+                position={[-totalSize / 2 + j * 4 + 2, 0.02, zPos]}
+              >
+                <planeGeometry args={[0.3, 1.5]} />
+                <meshBasicMaterial color="#FFFF00" />
+              </mesh>
+            ))}
+          </React.Fragment>
+        );
+      })}
+      
+      {/* Vertikale Straßen */}
+      {Array.from({ length: gridSize + 1 }).map((_, i) => {
+        const xPos = -totalSize / 2 + i * blockSize;
+        return (
+          <React.Fragment key={`v-${i}`}>
+            {/* Straße */}
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[xPos, 0.01, 0]} receiveShadow>
+              <planeGeometry args={[streetWidth, totalSize]} />
+              <meshStandardMaterial 
+                color="#1a1a1a"
+                roughness={0.9}
+              />
+            </mesh>
+            
+            {/* Mittelstreifen */}
+            {Array.from({ length: Math.floor(totalSize / 4) }).map((_, j) => (
+              <mesh 
+                key={`vm-${i}-${j}`}
+                rotation={[-Math.PI / 2, 0, 0]} 
+                position={[xPos, 0.02, -totalSize / 2 + j * 4 + 2]}
+              >
+                <planeGeometry args={[1.5, 0.3]} />
+                <meshBasicMaterial color="#FFFF00" />
+              </mesh>
+            ))}
+          </React.Fragment>
+        );
+      })}
+      
+      {/* Kreuzungen - etwas heller */}
+      {Array.from({ length: gridSize + 1 }).map((_, i) => 
+        Array.from({ length: gridSize + 1 }).map((_, j) => {
+          const xPos = -totalSize / 2 + i * blockSize;
+          const zPos = -totalSize / 2 + j * blockSize;
+          return (
+            <mesh 
+              key={`cross-${i}-${j}`}
+              rotation={[-Math.PI / 2, 0, 0]} 
+              position={[xPos, 0.015, zPos]}
+            >
+              <planeGeometry args={[streetWidth, streetWidth]} />
+              <meshStandardMaterial 
+                color="#2a2a2a"
+                roughness={0.8}
+              />
+            </mesh>
+          );
+        })
+      )}
+    </group>
   );
 };
 
