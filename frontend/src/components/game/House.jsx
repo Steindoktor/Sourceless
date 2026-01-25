@@ -59,9 +59,9 @@ const House = ({ position, type, isOnline, isHighlighted, onInteract, houseId, i
       <mesh position={[0, variant.height + 0.5, 0]} rotation={[0, Math.PI / 4, 0]}>
         <coneGeometry args={[variant.width * 0.8, 1.5, 4]} />
         <meshStandardMaterial 
-          color={isOnline ? '#00DD77' : '#666666'}
-          emissive={isOnline ? '#00DD77' : '#444444'}
-          emissiveIntensity={isOnline ? 0.5 : 0.2}
+          color={isGolden ? '#FFD700' : (isOnline ? '#00DD77' : '#666666')}
+          emissive={isGolden ? '#FFD700' : (isOnline ? '#00DD77' : '#444444')}
+          emissiveIntensity={isGolden ? 0.8 : (isOnline ? 0.5 : 0.2)}
         />
       </mesh>
 
