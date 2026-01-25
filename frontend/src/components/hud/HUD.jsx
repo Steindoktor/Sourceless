@@ -13,13 +13,7 @@ const HUD = ({ score, levelName, progress, isPlacing, highlightedHouse }) => {
         </div>
       </div>
 
-      {/* Top Right - Level */}
-      <div className="absolute top-6 right-6 pointer-events-auto">
-        <div className="bg-black/80 backdrop-blur-sm border-2 border-[#00FF88] rounded-lg px-6 py-3">
-          <div className="text-sm text-gray-400 font-medium">Level</div>
-          <div className="text-2xl font-bold text-[#00FF88]">{levelName}</div>
-        </div>
-      </div>
+      {/* Top Right is now used by Minimap - removed Level display from here */}
 
       {/* Center - Crosshair & Interaction */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
