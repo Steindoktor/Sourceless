@@ -137,7 +137,8 @@ const Scene = ({
   // Generate houses based on level
   useEffect(() => {
     const levelConfig = GAME_CONFIG.LEVELS[currentLevel];
-    const housesPerSide = Math.ceil(Math.sqrt(levelConfig.target));
+    // For 20 houses, we want 10 per side (not sqrt)
+    const housesPerSide = Math.ceil(levelConfig.target / 2);
     const newHouses = [];
 
     for (let i = 0; i < housesPerSide; i++) {
