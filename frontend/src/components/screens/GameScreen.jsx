@@ -225,13 +225,28 @@ const GameScreen = ({ onQuit }) => {
       )}
 
       {/* Click to start hint */}
-      {gameState === 'playing' && !document.pointerLockElement && (
+      {gameState === 'playing' && !document.pointerLockElement && !isMobile && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center pointer-events-none">
           <div className="bg-black/80 backdrop-blur-sm border-2 border-[#00FF88] rounded-lg px-8 py-4 pointer-events-auto">
             <p className="text-white text-xl font-bold">Klicke um zu spielen</p>
             <p className="text-gray-400 text-sm mt-2">Verwende Maus zum Umsehen</p>
           </div>
         </div>
+      )}
+
+      {/* Mobile Controls */}
+      {isMobile && gameState === 'playing' && (
+        <>
+          <VirtualJoystick 
+            onMove={handleJoystickMove}
+            enabled={true}
+          />
+          <MobileControls
+            onInteract={handleMobileInteract}
+            onSprint={handleMobileSprint}
+            enabled={true}
+          />
+        </>
       )}
     </div>
   );
