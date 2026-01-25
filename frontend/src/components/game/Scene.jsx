@@ -146,9 +146,9 @@ const Scene = ({
   // Update parent with scene data for minimap
   useEffect(() => {
     if (onSceneDataUpdate) {
-      onSceneDataUpdate({ houses, npcs, onlineHouses });
+      onSceneDataUpdate({ houses, npcs, onlineHouses, showSwitch, goldenHouses });
     }
-  }, [houses, npcs, onlineHouses, onSceneDataUpdate]);
+  }, [houses, npcs, onlineHouses, onSceneDataUpdate, showSwitch, goldenHouses]);
 
   // Generate houses based on level
   useEffect(() => {
