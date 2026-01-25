@@ -248,32 +248,92 @@ const Scene = ({
   // Generate houses based on level
   useEffect(() => {
     const levelConfig = GAME_CONFIG.LEVELS[currentLevel];
-    // For 20 houses, we want 10 per side (not sqrt)
-    const housesPerSide = Math.ceil(levelConfig.target / 2);
     const newHouses = [];
 
-    for (let i = 0; i < housesPerSide; i++) {
-      // Left side
-      newHouses.push({
-        id: `house-left-${i}`,
-        position: new THREE.Vector3(
-          -10,
-          0,
-          -40 + i * GAME_CONFIG.HOUSE.SPACING
-        ),
-        type: Math.floor(Math.random() * 3),
-      });
+    if (currentLevel === 0) {
+      // Level 1 (STRASSE): Einfache Reihen links und rechts
+      const housesPerSide = Math.ceil(levelConfig.target / 2);
+      
+      for (let i = 0; i < housesPerSide; i++) {
+        // Left side
+        newHouses.push({
+          id: `house-left-${i}`,
+          position: new THREE.Vector3(
+            -10,
+            0,
+            -40 + i * GAME_CONFIG.HOUSE.SPACING
+          ),
+          type: Math.floor(Math.random() * 3),
+        });
 
-      // Right side
-      newHouses.push({
-        id: `house-right-${i}`,
-        position: new THREE.Vector3(
-          10,
-          0,
-          -40 + i * GAME_CONFIG.HOUSE.SPACING
-        ),
-        type: Math.floor(Math.random() * 3),
-      });
+        // Right side
+        newHouses.push({
+          id: `house-right-${i}`,
+          position: new THREE.Vector3(
+            10,
+            0,
+            -40 + i * GAME_CONFIG.HOUSE.SPACING
+          ),
+          type: Math.floor(Math.random() * 3),
+        });
+      }
+    } else {
+      // Stadt-Level: Häuser in Blöcken um Straßennetz
+      const gridSize = currentLevel === 1 ? 3 : (currentLevel === 2 ? 5 : 7);
+      const blockSize = 20;
+      const totalSize = gridSize * blockSize;
+      const housesPerBlock = Math.ceil(levelConfig.target / (gridSize * gridSize));
+      
+      let houseId = 0;
+      
+      // Für jeden Block im Gitter
+      for (let blockX = 0; blockX < gridSize; blockX++) {
+        for (let blockZ = 0; blockZ < gridSize; blockZ++) {
+          const blockCenterX = -totalSize / 2 + blockX * blockSize + blockSize / 2;
+          const blockCenterZ = -totalSize / 2 + blockZ * blockSize + blockSize / 2;
+          
+          // Häuser um den Block herum platzieren
+          const housesInThisBlock = Math.min(housesPerBlock, levelConfig.target - houseId);
+          
+          for (let h = 0; h < housesInThisBlock; h++) {
+            const side = h % 4; // 0=oben, 1=rechts, 2=unten, 3=links
+            const offset = (h / 4) * 6; // Abstand entlang der Seite
+            
+            let posX, posZ;
+            
+            switch(side) {
+              case 0: // Oben
+                posX = blockCenterX - 8 + offset;
+                posZ = blockCenterZ - 8;
+                break;
+              case 1: // Rechts
+                posX = blockCenterX + 8;
+                posZ = blockCenterZ - 8 + offset;
+                break;
+              case 2: // Unten
+                posX = blockCenterX + 8 - offset;
+                posZ = blockCenterZ + 8;
+                break;
+              case 3: // Links
+                posX = blockCenterX - 8;
+                posZ = blockCenterZ + 8 - offset;
+                break;
+            }
+            
+            newHouses.push({
+              id: `house-${blockX}-${blockZ}-${h}`,
+              position: new THREE.Vector3(posX, 0, posZ),
+              type: Math.floor(Math.random() * 3),
+            });
+            
+            houseId++;
+            if (houseId >= levelConfig.target) break;
+          }
+          
+          if (houseId >= levelConfig.target) break;
+        }
+        if (houseId >= levelConfig.target) break;
+      }
     }
 
     setHouses(newHouses);
