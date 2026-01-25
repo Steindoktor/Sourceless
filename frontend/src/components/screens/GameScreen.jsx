@@ -3,11 +3,13 @@ import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 import Scene from '../game/Scene';
 import HUD from '../hud/HUD';
+import Minimap from '../hud/Minimap';
 import PauseMenu from './PauseMenu';
 import GameOver from './GameOver';
 import { usePlayerMovement } from '@/hooks/usePlayerMovement';
 import { useGameState } from '@/hooks/useGameState';
 import { GAME_CONFIG, KEYBOARD_KEYS } from '@/utils/gameConstants';
+import soundManager from '@/utils/soundManager';
 
 const GameScreen = ({ onQuit }) => {
   const {
@@ -28,8 +30,19 @@ const GameScreen = ({ onQuit }) => {
 
   const playerMovement = usePlayerMovement(gameState);
   const [highlightedHouse, setHighlightedHouse] = useState(null);
+  const [sceneData, setSceneData] = useState({ houses: [], npcs: [], onlineHouses: new Set() });
   const requestAnimationFrameId = useRef(null);
   const lastTime = useRef(performance.now());
+
+  // Initialize sound manager
+  useEffect(() => {
+    soundManager.init();
+    soundManager.startBackgroundMusic();
+    
+    return () => {
+      soundManager.stopBackgroundMusic();
+    };
+  }, []);
 
   // Start game on mount
   useEffect(() => {
