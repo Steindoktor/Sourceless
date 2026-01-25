@@ -346,15 +346,23 @@ const Scene = ({
           position={house.position}
           type={house.type}
           isOnline={onlineHouses.has(house.id)}
-          isHighlighted={highlightedHouse?.id === house.id}
+          isGolden={goldenHouses}
+          isHighlighted={highlightedHouse?.id === house.id && !goldenHouses}
           onInteract={() => {
-            if (!onlineHouses.has(house.id)) {
+            if (!onlineHouses.has(house.id) && !goldenHouses) {
               setOnlineHouses(prev => new Set([...prev, house.id]));
               onInteract();
             }
           }}
         />
       ))}
+
+      {/* Central Switch */}
+      <CentralSwitch 
+        position={switchPosition}
+        isActive={switchActive}
+        isVisible={showSwitch}
+      />
 
       {/* NPCs */}
       {npcs.map((npc) => (
