@@ -86,7 +86,7 @@ const Ground = () => {
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
       <planeGeometry args={[200, 200, 50, 50]} />
       <meshStandardMaterial 
-        color={GAME_CONFIG.COLORS.SECONDARY_DARK}
+        color="#2A2F34"
         roughness={0.8}
         metalness={0.2}
       />
