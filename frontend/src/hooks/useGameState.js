@@ -37,20 +37,24 @@ export const useGameState = () => {
   const incrementScore = useCallback(() => {
     setScore(prev => {
       const newScore = prev + 1;
-      const levelConfig = GAME_CONFIG.LEVELS[currentLevel];
-      
-      // Check for level up
-      if (newScore >= levelConfig.target && currentLevel < GAME_CONFIG.LEVELS.length - 1) {
-        setCurrentLevel(currentLevel + 1);
-        setTotalHouses(GAME_CONFIG.LEVELS[currentLevel + 1].target);
-      } else if (newScore >= levelConfig.target && currentLevel === GAME_CONFIG.LEVELS.length - 1) {
-        // Won the game!
-        setTimeout(() => endGame('You connected the world!'), 500);
-      }
-      
+      // Level-Up wurde entfernt - passiert nur über Schalter
       return newScore;
     });
   }, [currentLevel, endGame]);
+
+  const completeLevel = useCallback(() => {
+    const levelConfig = GAME_CONFIG.LEVELS[currentLevel];
+    
+    if (score >= levelConfig.target && currentLevel < GAME_CONFIG.LEVELS.length - 1) {
+      // Go to next level
+      setCurrentLevel(currentLevel + 1);
+      setTotalHouses(GAME_CONFIG.LEVELS[currentLevel + 1].target);
+      setScore(0); // Reset score for new level
+    } else if (score >= levelConfig.target && currentLevel === GAME_CONFIG.LEVELS.length - 1) {
+      // Won the game!
+      setTimeout(() => endGame('You connected the world!'), 500);
+    }
+  }, [currentLevel, score, endGame]);
 
   const progress = (score / GAME_CONFIG.LEVELS[currentLevel].target) * 100;
   const levelName = GAME_CONFIG.LEVELS[currentLevel].name;
