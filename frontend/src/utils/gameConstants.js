@@ -2,8 +2,8 @@
 export const GAME_CONFIG = {
   // Player settings
   PLAYER: {
-    SPEED: 5,
-    SPRINT_MULTIPLIER: 1.8,
+    SPEED: 8, // Erhöht von 5 auf 8
+    SPRINT_MULTIPLIER: 2.0, // Erhöht von 1.8 auf 2.0
     ROTATION_SPEED: 0.002,
     HEIGHT: 1.8,
     RADIUS: 0.5,
