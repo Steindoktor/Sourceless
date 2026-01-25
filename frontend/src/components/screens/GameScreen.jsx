@@ -119,6 +119,7 @@ const GameScreen = ({ onQuit }) => {
           gameState={gameState}
           currentLevel={currentLevel}
           highlightedHouse={highlightedHouse}
+          setHighlightedHouse={setHighlightedHouse}
           onInteract={handleInteract}
           onGameOver={handleGameOver}
         />
