@@ -8,7 +8,6 @@ import GameOver from './GameOver';
 import { usePlayerMovement } from '@/hooks/usePlayerMovement';
 import { useGameState } from '@/hooks/useGameState';
 import { GAME_CONFIG, KEYBOARD_KEYS } from '@/utils/gameConstants';
-import * as THREE from 'three';
 
 const GameScreen = ({ onQuit }) => {
   const {
