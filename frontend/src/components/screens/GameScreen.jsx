@@ -90,10 +90,14 @@ const GameScreen = ({ onQuit }) => {
   };
 
   const handleGameOver = () => {
+    playerMovement.exitPointerLock();
     endGame('Du wurdest von einem Regierungsbeamten verhaftet!');
   };
 
   const handleRestart = () => {
+    playerMovement.exitPointerLock();
+    playerMovement.setPosition(new THREE.Vector3(0, 0, 0));
+    playerMovement.setRotation(0);
     startGame();
   };
 
