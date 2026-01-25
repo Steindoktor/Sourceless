@@ -67,6 +67,6 @@ export const KEYBOARD_KEYS = {
   LEFT: ['KeyA', 'ArrowLeft'],
   RIGHT: ['KeyD', 'ArrowRight'],
   SPRINT: 'ShiftLeft',
-  INTERACT: 'KeyE',
+  INTERACT: ['KeyE', 'Space'], // E oder Leertaste
   PAUSE: 'Escape',
 };
