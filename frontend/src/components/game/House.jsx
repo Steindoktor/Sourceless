@@ -4,19 +4,19 @@ import { GAME_CONFIG } from '@/utils/gameConstants';
 import * as THREE from 'three';
 import { HouseConnectionParticles } from './ParticleEffects';
 
-const House = ({ position, type, isOnline, isHighlighted, onInteract, houseId }) => {
+const House = ({ position, type, isOnline, isHighlighted, onInteract, houseId, isGolden }) => {
   const houseRef = useRef();
   const boxRef = useRef();
   const [glowIntensity, setGlowIntensity] = useState(0);
   const [showParticles, setShowParticles] = useState(false);
 
-  // Trigger particles when house goes online
+  // Trigger particles when house goes online or golden
   useEffect(() => {
-    if (isOnline) {
+    if (isOnline || isGolden) {
       setShowParticles(true);
       setTimeout(() => setShowParticles(false), 2000);
     }
-  }, [isOnline]);
+  }, [isOnline, isGolden]);
 
   useFrame((state) => {
     if (isHighlighted && !isOnline) {
