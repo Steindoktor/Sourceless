@@ -5,6 +5,8 @@ import Player from './Player';
 import House from './House';
 import NPC from './NPC';
 import { GAME_CONFIG, KEYBOARD_KEYS } from '@/utils/gameConstants';
+import { AmbientSparkles } from './ParticleEffects';
+import soundManager from '@/utils/soundManager';
 
 // Extend THREE to fix x-line-number issue
 extend(THREE);
