@@ -1,12 +1,22 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { GAME_CONFIG } from '@/utils/gameConstants';
 import * as THREE from 'three';
+import { HouseConnectionParticles } from './ParticleEffects';
 
 const House = ({ position, type, isOnline, isHighlighted, onInteract, houseId }) => {
   const houseRef = useRef();
   const boxRef = useRef();
   const [glowIntensity, setGlowIntensity] = useState(0);
+  const [showParticles, setShowParticles] = useState(false);
+
+  // Trigger particles when house goes online
+  useEffect(() => {
+    if (isOnline) {
+      setShowParticles(true);
+      setTimeout(() => setShowParticles(false), 2000);
+    }
+  }, [isOnline]);
 
   useFrame((state) => {
     if (isHighlighted && !isOnline) {
