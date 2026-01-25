@@ -82,7 +82,11 @@ const House = ({ position, type, isOnline, isHighlighted, onInteract, houseId })
       {/* Door */}
       <mesh position={[0, variant.height * 0.25, variant.depth / 2 + 0.01]}>
         <boxGeometry args={[0.7, 1.2, 0.1]} />
-        <meshStandardMaterial color="#654321" />
+        <meshStandardMaterial 
+          color="#8B4513" 
+          emissive="#4A2511"
+          emissiveIntensity={0.2}
+        />
       </mesh>
 
       {/* Internet box (when online) */}
