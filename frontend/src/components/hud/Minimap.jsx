@@ -95,24 +95,26 @@ const Minimap = ({ playerPosition, houses, npcs, onlineHouses, levelName, isMobi
       </div>
       
       {/* Legend */}
-      <div className="mt-2 bg-black/80 backdrop-blur-sm border border-[#00FF88] rounded-lg p-2 text-xs">
-        <div className="flex items-center gap-2 mb-1">
-          <div className="w-3 h-3 rounded-full bg-[#00FF88]"></div>
-          <span className="text-white">Du</span>
+      {!isMobile && (
+        <div className="mt-2 bg-black/80 backdrop-blur-sm border border-[#00FF88] rounded-lg p-2 text-xs">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-3 h-3 rounded-full bg-[#00FF88]"></div>
+            <span className="text-white">Du</span>
+          </div>
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-3 h-3 bg-[#00FF88]"></div>
+            <span className="text-white">Online</span>
+          </div>
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-3 h-3 bg-[#444444]"></div>
+            <span className="text-white">Offline</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-[#FF3333]"></div>
+            <span className="text-white">Beamte</span>
+          </div>
         </div>
-        <div className="flex items-center gap-2 mb-1">
-          <div className="w-3 h-3 bg-[#00FF88]"></div>
-          <span className="text-white">Online</span>
-        </div>
-        <div className="flex items-center gap-2 mb-1">
-          <div className="w-3 h-3 bg-[#444444]"></div>
-          <span className="text-white">Offline</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-[#FF3333]"></div>
-          <span className="text-white">Beamte</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
