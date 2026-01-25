@@ -81,7 +81,26 @@ const GameScreen = ({ onQuit }) => {
       lastTime.current = currentTime;
 
       if (gameState === 'playing') {
-        playerMovement.update(delta);
+        // Desktop movement
+        if (!isMobile) {
+          playerMovement.update(delta);
+        } else {
+          // Mobile movement - kontinuierlich von mobileVelocity
+          if (mobileVelocity.magnitude > 0) {
+            const moveSpeed = GAME_CONFIG.PLAYER.SPEED * delta * (mobileSprintActive ? GAME_CONFIG.PLAYER.SPRINT_MULTIPLIER : 1);
+            
+            const velocity = new THREE.Vector3(
+              mobileVelocity.x * moveSpeed * mobileVelocity.magnitude,
+              0,
+              mobileVelocity.y * moveSpeed * mobileVelocity.magnitude
+            );
+            
+            const rotatedVelocity = velocity.clone();
+            rotatedVelocity.applyAxisAngle(new THREE.Vector3(0, 1, 0), playerMovement.rotation);
+            
+            playerMovement.setPosition(prev => prev.clone().add(rotatedVelocity));
+          }
+        }
       }
 
       requestAnimationFrameId.current = requestAnimationFrame(gameLoop);
@@ -94,7 +113,7 @@ const GameScreen = ({ onQuit }) => {
         cancelAnimationFrame(requestAnimationFrameId.current);
       }
     };
-  }, [gameState, playerMovement]);
+  }, [gameState, playerMovement, isMobile, mobileVelocity, mobileSprintActive]);
 
   // Check for nearby houses to highlight
   useEffect(() => {
