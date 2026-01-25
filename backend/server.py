@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -6,7 +6,7 @@ import os
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
 
@@ -14,59 +14,90 @@ from datetime import datetime, timezone
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# Create the main app without a prefix
 app = FastAPI()
-
-# Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
 
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
+class GameScore(BaseModel):
+    model_config = ConfigDict(extra="ignore")
     
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
+    player_name: str = "Anonymous"
+    score: int
+    level_reached: str
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
+class GameScoreCreate(BaseModel):
+    player_name: Optional[str] = "Anonymous"
+    score: int
+    level_reached: str
 
-# Add your routes to the router instead of directly to app
+
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Connect The World API", "status": "online"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
+
+@api_router.post("/scores", response_model=GameScore)
+async def create_score(input_data: GameScoreCreate):
+    score_obj = GameScore(**input_data.model_dump())
     
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
+    doc = score_obj.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
     
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
+    await db.game_scores.insert_one(doc)
+    return score_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
 
-# Include the router in the main app
+@api_router.get("/scores", response_model=List[GameScore])
+async def get_high_scores(limit: int = 10):
+    scores = await db.game_scores.find(
+        {}, 
+        {"_id": 0}
+    ).sort("score", -1).limit(limit).to_list(limit)
+    
+    for score in scores:
+        if isinstance(score['timestamp'], str):
+            score['timestamp'] = datetime.fromisoformat(score['timestamp'])
+    
+    return scores
+
+
+@api_router.get("/stats")
+async def get_game_stats():
+    total_games = await db.game_scores.count_documents({})
+    
+    if total_games == 0:
+        return {
+            "total_games": 0,
+            "average_score": 0,
+            "highest_score": 0,
+        }
+    
+    pipeline = [
+        {
+            "$group": {
+                "_id": None,
+                "avg_score": {"$avg": "$score"},
+                "max_score": {"$max": "$score"},
+            }
+        }
+    ]
+    
+    result = await db.game_scores.aggregate(pipeline).to_list(1)
+    stats = result[0] if result else {"avg_score": 0, "max_score": 0}
+    
+    return {
+        "total_games": total_games,
+        "average_score": round(stats.get("avg_score", 0), 2),
+        "highest_score": stats.get("max_score", 0),
+    }
+
+
 app.include_router(api_router)
 
 app.add_middleware(
@@ -77,7 +108,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
