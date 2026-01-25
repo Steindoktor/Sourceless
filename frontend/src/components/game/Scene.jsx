@@ -235,7 +235,7 @@ const Scene = ({
 
       {/* Environment - Simple background color */}
       <color attach="background" args={['#0A0F14']} />
-      <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+      <SimpleStars />
       
       <Ground />
       <Street />
