@@ -74,5 +74,6 @@ export const useGameState = () => {
     resumeGame,
     endGame,
     incrementScore,
+    completeLevel,
   };
 };
