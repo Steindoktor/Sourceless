@@ -159,6 +159,30 @@ const Scene = ({
     };
   }, [highlightedHouse, onInteract, gameState, onlineHouses]);
 
+  // Check for nearby houses (highlight detection)
+  useFrame(() => {
+    if (!playerPosition || gameState !== 'playing') return;
+
+    let closestHouse = null;
+    let minDistance = GAME_CONFIG.PLAYER.INTERACTION_RANGE;
+
+    houses.forEach(house => {
+      if (onlineHouses.has(house.id)) return;
+      
+      const distance = playerPosition.distanceTo(house.position);
+      if (distance < minDistance) {
+        closestHouse = house;
+        minDistance = distance;
+      }
+    });
+
+    if (closestHouse !== highlightedHouse) {
+      if (setHighlightedHouse) {
+        setHighlightedHouse(closestHouse);
+      }
+    }
+  });
+
   return (
     <>
       {/* Lighting */}
