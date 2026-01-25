@@ -37,7 +37,8 @@ const GameScreen = ({ onQuit }) => {
   // Initialize sound manager
   useEffect(() => {
     soundManager.init();
-    soundManager.startBackgroundMusic();
+    // Musik ist jetzt deaktiviert - nur Sound-Effekte
+    // soundManager.startBackgroundMusic(); // Auskommentiert
     
     return () => {
       soundManager.stopBackgroundMusic();
