@@ -138,27 +138,35 @@ const GameScreen = ({ onQuit }) => {
   const handleJoystickMove = (joystickData) => {
     if (gameState !== 'playing') return;
     
-    // Apply joystick input to player movement
-    const delta = 0.016; // ~60fps
-    const moveSpeed = GAME_CONFIG.PLAYER.SPEED * delta * (mobileSprintActive ? GAME_CONFIG.PLAYER.SPRINT_MULTIPLIER : 1);
-    
-    const velocity = new THREE.Vector3(
-      joystickData.x * moveSpeed * joystickData.magnitude,  // X: Links/Rechts
-      0,
-      joystickData.y * moveSpeed * joystickData.magnitude  // Z: Vor/Zurück (OHNE Minus!)
-    );
-    
-    // Apply rotation
-    const rotatedVelocity = velocity.clone();
-    rotatedVelocity.applyAxisAngle(new THREE.Vector3(0, 1, 0), playerMovement.rotation);
-    
-    playerMovement.setPosition(prev => prev.clone().add(rotatedVelocity));
+    // Store velocity state for continuous update in game loop
+    setMobileVelocity({
+      x: joystickData.x,
+      y: joystickData.y,
+      magnitude: joystickData.magnitude
+    });
   };
 
-  // Mobile interact handler
+  // Mobile interact handler - FIXED: Trigger keyboard event
   const handleMobileInteract = () => {
-    if (gameState !== 'playing' || !highlightedHouse) return;
-    handleInteract();
+    if (gameState !== 'playing') return;
+    
+    // Simulate E key press
+    const keyDownEvent = new KeyboardEvent('keydown', {
+      code: 'KeyE',
+      key: 'e',
+      bubbles: true
+    });
+    window.dispatchEvent(keyDownEvent);
+    
+    // Simulate E key release after short delay
+    setTimeout(() => {
+      const keyUpEvent = new KeyboardEvent('keyup', {
+        code: 'KeyE',
+        key: 'e',
+        bubbles: true
+      });
+      window.dispatchEvent(keyUpEvent);
+    }, 100);
   };
 
   // Mobile sprint toggle
