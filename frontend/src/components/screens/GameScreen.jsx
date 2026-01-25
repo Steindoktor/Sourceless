@@ -77,8 +77,8 @@ const GameScreen = ({ onQuit }) => {
 
   // Check for nearby houses to highlight
   useEffect(() => {
-    // This will be handled in Scene component via raycast
-    // For now, we'll pass it through
+    // This would ideally use Three.js raycasting
+    // For now, simplified distance check will be in Scene
   }, [playerMovement.position]);
 
   const handleInteract = () => {
