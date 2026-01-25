@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import '@/App.css';
-import MainMenu from '@/components/screens/MainMenu';
-import GameScreen from '@/components/screens/GameScreen';
-import ErrorBoundary from '@/components/ErrorBoundary';
-import DevToolsSuppressor from '@/components/DevToolsSuppressor';
+import './App.css';
+import MainMenu from './components/screens/MainMenu';
+import GameScreen from './components/screens/GameScreen';
+import ErrorBoundary from './components/ErrorBoundary';
+import DevToolsSuppressor from './components/DevToolsSuppressor';
 
 function App() {
   const [screen, setScreen] = useState('menu'); // menu, game
