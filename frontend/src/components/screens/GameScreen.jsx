@@ -35,8 +35,10 @@ const GameScreen = ({ onQuit }) => {
   const playerMovement = usePlayerMovement(gameState);
   const [highlightedHouse, setHighlightedHouse] = useState(null);
   const [sceneData, setSceneData] = useState({ houses: [], npcs: [], onlineHouses: new Set() });
+  const [mobileSprintActive, setMobileSprintActive] = useState(false);
   const requestAnimationFrameId = useRef(null);
   const lastTime = useRef(performance.now());
+  const isMobile = useMobileDetection();
 
   // Initialize sound manager
   useEffect(() => {
