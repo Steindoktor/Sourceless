@@ -199,7 +199,12 @@ const Scene = ({
   // Handle interaction
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.code === KEYBOARD_KEYS.INTERACT && !interactKeyPressed.current && gameState === 'playing') {
+      // Check if E or Space is pressed
+      const isInteractKey = Array.isArray(KEYBOARD_KEYS.INTERACT) 
+        ? KEYBOARD_KEYS.INTERACT.includes(e.code)
+        : e.code === KEYBOARD_KEYS.INTERACT;
+        
+      if (isInteractKey && !interactKeyPressed.current && gameState === 'playing') {
         interactKeyPressed.current = true;
         
         if (highlightedHouse && !onlineHouses.has(highlightedHouse.id)) {
@@ -217,7 +222,11 @@ const Scene = ({
     };
 
     const handleKeyUp = (e) => {
-      if (e.code === KEYBOARD_KEYS.INTERACT) {
+      const isInteractKey = Array.isArray(KEYBOARD_KEYS.INTERACT) 
+        ? KEYBOARD_KEYS.INTERACT.includes(e.code)
+        : e.code === KEYBOARD_KEYS.INTERACT;
+        
+      if (isInteractKey) {
         interactKeyPressed.current = false;
       }
     };
