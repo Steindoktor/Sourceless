@@ -6,10 +6,10 @@ const HUD = ({ score, levelName, progress, isPlacing, highlightedHouse, showSwit
   return (
     <div className="fixed inset-0 pointer-events-none">
       {/* Top Left - Score */}
-      <div className="absolute top-6 left-6 pointer-events-auto">
-        <div className="bg-black/80 backdrop-blur-sm border-2 border-[#00FF88] rounded-lg px-6 py-3">
-          <div className="text-sm text-gray-400 font-medium">Angeschlossene Häuser</div>
-          <div className="text-4xl font-bold text-[#00FF88] font-mono">{score}</div>
+      <div className={`absolute ${isMobile ? 'top-3 left-3' : 'top-6 left-6'} pointer-events-auto`}>
+        <div className={`bg-black/80 backdrop-blur-sm border-2 border-[#00FF88] rounded-lg ${isMobile ? 'px-3 py-2' : 'px-6 py-3'}`}>
+          <div className={`${isMobile ? 'text-xs' : 'text-sm'} text-gray-400 font-medium`}>Häuser</div>
+          <div className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-bold text-[#00FF88] font-mono`}>{score}</div>
         </div>
       </div>
 
