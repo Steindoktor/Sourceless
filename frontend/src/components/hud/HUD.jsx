@@ -43,6 +43,16 @@ const HUD = ({ score, levelName, progress, isPlacing, highlightedHouse, showSwit
             </div>
           </div>
         )}
+
+        {showSwitchHint && (
+          <div className="absolute top-12 left-1/2 transform -translate-x-1/2">
+            <div className="bg-black/90 backdrop-blur-sm border-2 border-[#FFD700] rounded-lg px-6 py-3 animate-pulse">
+              <div className="text-[#FFD700] font-bold text-xl text-center">🎉 Alle Häuser angeschlossen!</div>
+              <div className="text-white text-center mt-2">Gehe zum zentralen Schalter und aktiviere das Netzwerk!</div>
+              <div className="text-[#FFD700] text-center mt-1">⚡ Folge dem leuchtenden Pfad ⚡</div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Bottom - Progress Bar */}
