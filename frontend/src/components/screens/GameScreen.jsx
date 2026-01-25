@@ -26,6 +26,7 @@ const GameScreen = ({ onQuit }) => {
     resumeGame,
     endGame,
     incrementScore,
+    completeLevel,
   } = useGameState();
 
   const playerMovement = usePlayerMovement(gameState);
