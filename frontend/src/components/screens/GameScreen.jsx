@@ -138,17 +138,26 @@ const GameScreen = ({ onQuit }) => {
           onHighlightChange={setHighlightedHouse}
           onInteract={handleInteract}
           onGameOver={handleGameOver}
+          onSceneDataUpdate={setSceneData}
         />
       </Canvas>
 
       {gameState === 'playing' && (
-        <HUD
-          score={score}
-          levelName={levelName}
-          progress={progress}
-          isPlacing={isPlacing}
-          highlightedHouse={highlightedHouse}
-        />
+        <>
+          <HUD
+            score={score}
+            levelName={levelName}
+            progress={progress}
+            isPlacing={isPlacing}
+            highlightedHouse={highlightedHouse}
+          />
+          <Minimap
+            playerPosition={playerMovement.position}
+            houses={sceneData.houses}
+            npcs={sceneData.npcs}
+            onlineHouses={sceneData.onlineHouses}
+          />
+        </>
       )}
 
       {gameState === 'paused' && (
