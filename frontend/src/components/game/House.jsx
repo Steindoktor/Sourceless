@@ -117,6 +117,9 @@ const House = ({ position, type, isOnline, isHighlighted, onInteract, houseId })
           />
         </mesh>
       )}
+
+      {/* Particle effects when house goes online */}
+      <HouseConnectionParticles position={position} active={showParticles} />
     </group>
   );
 };
