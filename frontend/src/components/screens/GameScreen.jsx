@@ -196,6 +196,7 @@ const GameScreen = ({ onQuit }) => {
             isPlacing={isPlacing}
             highlightedHouse={highlightedHouse}
             showSwitchHint={sceneData.showSwitch}
+            isMobile={isMobile}
           />
           <Minimap
             playerPosition={playerMovement.position}
