@@ -1,10 +1,24 @@
 import React, { useRef, useEffect, useMemo, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree, extend } from '@react-three/fiber';
 import * as THREE from 'three';
 import Player from './Player';
 import House from './House';
 import NPC from './NPC';
 import { GAME_CONFIG, KEYBOARD_KEYS } from '@/utils/gameConstants';
+
+// Extend THREE to fix x-line-number issue
+extend(THREE);
+
+// Filter out React DevTools props
+const filterProps = (props) => {
+  const filtered = { ...props };
+  Object.keys(filtered).forEach(key => {
+    if (key.startsWith('x-') || key.includes('line-number')) {
+      delete filtered[key];
+    }
+  });
+  return filtered;
+};
 
 const SimpleStars = () => {
   const starsRef = useRef();
