@@ -205,6 +205,15 @@ const Scene = ({
     setNpcs(newNpcs);
   }, [currentLevel]);
 
+  // Check if all houses are online to show switch
+  useEffect(() => {
+    const levelConfig = GAME_CONFIG.LEVELS[currentLevel];
+    if (onlineHouses.size >= levelConfig.target && !showSwitch && !goldenHouses) {
+      setShowSwitch(true);
+      soundManager.playCombo(); // Special sound when switch appears
+    }
+  }, [onlineHouses, currentLevel, showSwitch, goldenHouses]);
+
   // Handle interaction
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -216,7 +225,28 @@ const Scene = ({
       if (isInteractKey && !interactKeyPressed.current && gameState === 'playing') {
         interactKeyPressed.current = true;
         
-        if (highlightedHouse && !onlineHouses.has(highlightedHouse.id)) {
+        // Check if near switch
+        if (showSwitch && !switchActive && playerPosition) {
+          const distanceToSwitch = playerPosition.distanceTo(switchPosition);
+          if (distanceToSwitch < 4) {
+            // Activate switch!
+            setSwitchActive(true);
+            setGoldenHouses(true);
+            soundManager.playHouseOnline();
+            soundManager.playCombo();
+            
+            // After 2 seconds, go to next level
+            setTimeout(() => {
+              if (onLevelComplete) {
+                onLevelComplete();
+              }
+            }, 3000);
+            return;
+          }
+        }
+        
+        // Normal house interaction
+        if (highlightedHouse && !onlineHouses.has(highlightedHouse.id) && !goldenHouses) {
           setOnlineHouses(prev => new Set([...prev, highlightedHouse.id]));
           
           // Play sounds
