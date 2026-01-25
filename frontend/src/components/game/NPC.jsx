@@ -143,6 +143,9 @@ const NPC = ({ position, playerPosition, onArrest, speedMultiplier = 1, npcId })
           <meshBasicMaterial color="#FF0000" side={THREE.DoubleSide} />
         </mesh>
       )}
+
+      {/* Trail particles when chasing */}
+      <NPCTrailParticles position={npcRef.current?.position || position} isChasing={isAlert} />
     </group>
   );
 };
