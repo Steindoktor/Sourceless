@@ -485,7 +485,7 @@ const Scene = ({
       <AmbientSparkles count={30} />
       
       <Ground />
-      <Street />
+      <Street level={currentLevel} />
 
       {/* Player */}
       <Player position={playerPosition} rotation={playerRotation} gameState={gameState} />
