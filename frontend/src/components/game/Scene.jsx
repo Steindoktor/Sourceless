@@ -261,6 +261,9 @@ const Scene = ({
     const levelConfig = GAME_CONFIG.LEVELS[currentLevel];
     const newHouses = [];
 
+    // Reset processed houses beim Level-Wechsel
+    processedHouses.current.clear();
+
     if (currentLevel === 0) {
       // Level 1 (STRASSE): Einfache Reihen links und rechts
       const housesPerSide = Math.ceil(levelConfig.target / 2);
