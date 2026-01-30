@@ -258,6 +258,7 @@ const GameScreen = ({ onQuit }) => {
         shadows
       >
         <Scene
+          key={sceneData.forceRemount || 0}
           playerPosition={playerMovement.position}
           playerRotation={playerMovement.rotation}
           gameState={gameState}
