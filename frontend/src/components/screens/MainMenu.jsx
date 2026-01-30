@@ -56,13 +56,14 @@ const MainMenu = ({ onStart }) => {
 
         {/* Instructions */}
         <div className="max-w-2xl mx-auto bg-black/40 backdrop-blur-sm border border-[#00FF88]/30 rounded-lg p-6 text-left">
-          <h3 className="text-[#00FF88] font-bold text-lg mb-4">Anleitung</h3>
+          <h3 className="text-[#00FF88] font-bold text-lg mb-4">Spielanleitung</h3>
           <div className="space-y-2 text-gray-300 text-sm">
             <p>• Laufe mit <span className="text-[#00FF88] font-bold">WASD</span> durch die Stadt</p>
-            <p>• Drücke <span className="text-[#00FF88] font-bold">E oder Leertaste</span> in der Nähe eines Hauses, um einen Internet-Kasten anzubringen</p>
-            <p>• Vermeide die Regierungsbeamten (rote Figuren)</p>
-            <p>• Erreiche das Ziel jedes Levels, um aufzusteigen</p>
+            <p>• <span className="text-[#00FF88] font-bold">Berühre Gebäude</span> um sie automatisch ans dezentrale Netz anzuschließen</p>
+            <p>• Vermeide die <span className="text-red-500 font-bold">Regierungsbeamten</span> (staatliche Kontrolle)</p>
+            <p>• Baue das Netzwerk aus: Straße → Stadt → Land → Welt</p>
             <p>• <span className="text-[#00FF88] font-bold">Shift</span> für Sprint verwenden</p>
+            <p className="text-yellow-500 italic mt-3">Sobald alle Gebäude vorbereitet sind, aktiviere den zentralen Schalter!</p>
           </div>
         </div>
 
