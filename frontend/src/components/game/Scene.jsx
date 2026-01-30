@@ -436,27 +436,32 @@ const Scene = ({
 
     // Check collision with houses
     houses.forEach(house => {
-      if (onlineHouses.has(house.id)) return;
-      
       const distance = playerPosition.distanceTo(house.position);
       
-      // Automatische Interaktion beim Berühren
-      if (distance < GAME_CONFIG.HOUSE.COLLISION_RADIUS && !onlineHouses.has(house.id)) {
-        setOnlineHouses(prev => new Set([...prev, house.id]));
-        
-        // Play sounds
-        soundManager.playPlacement();
-        setTimeout(() => {
-          soundManager.playHouseOnline();
-        }, 800);
-        
-        onInteract();
+      // WICHTIG: Erst Auto-Interact prüfen (größerer Radius)
+      // Dann erst Kollision (kleinerer Radius)
+      
+      // Automatische Interaktion beim Nahkommen
+      if (distance < GAME_CONFIG.HOUSE.INTERACT_RADIUS && !onlineHouses.has(house.id)) {
+        setOnlineHouses(prev => {
+          if (prev.has(house.id)) return prev; // Bereits online
+          const newSet = new Set([...prev, house.id]);
+          
+          // Play sounds
+          soundManager.playPlacement();
+          setTimeout(() => {
+            soundManager.playHouseOnline();
+          }, 800);
+          
+          onInteract();
+          return newSet;
+        });
       }
     });
 
     // Highlight closest house (für visuelles Feedback)
     let closestHouse = null;
-    let minDistance = GAME_CONFIG.PLAYER.INTERACTION_RANGE;
+    let minDistance = GAME_CONFIG.HOUSE.INTERACT_RADIUS;
 
     houses.forEach(house => {
       if (onlineHouses.has(house.id)) return;
