@@ -81,6 +81,9 @@ const GameScreen = ({ onQuit }) => {
       lastTime.current = currentTime;
 
       if (gameState === 'playing') {
+        // Speichere alte Position für Kollisionserkennung
+        const oldPosition = playerMovement.position.clone();
+        
         // Desktop movement
         if (!isMobile) {
           playerMovement.update(delta);
@@ -101,6 +104,29 @@ const GameScreen = ({ onQuit }) => {
             playerMovement.setPosition(prev => prev.clone().add(rotatedVelocity));
           }
         }
+
+        // Kollisionserkennung mit Häusern
+        const newPosition = playerMovement.position;
+        let hasCollision = false;
+
+        sceneData.houses?.forEach(house => {
+          const distance = newPosition.distanceTo(house.position);
+          const minDistance = GAME_CONFIG.HOUSE.COLLISION_RADIUS + GAME_CONFIG.PLAYER.RADIUS;
+          
+          if (distance < minDistance) {
+            hasCollision = true;
+            
+            // Schiebe Spieler zurück
+            const direction = new THREE.Vector3()
+              .subVectors(newPosition, house.position)
+              .normalize();
+            
+            const correctedPosition = house.position.clone()
+              .add(direction.multiplyScalar(minDistance));
+            
+            playerMovement.setPosition(correctedPosition);
+          }
+        });
       }
 
       requestAnimationFrameId.current = requestAnimationFrame(gameLoop);
@@ -113,7 +139,7 @@ const GameScreen = ({ onQuit }) => {
         cancelAnimationFrame(requestAnimationFrameId.current);
       }
     };
-  }, [gameState, playerMovement, isMobile, mobileVelocity, mobileSprintActive]);
+  }, [gameState, playerMovement, isMobile, mobileVelocity, mobileSprintActive, sceneData.houses]);
 
   // Check for nearby houses to highlight
   useEffect(() => {
