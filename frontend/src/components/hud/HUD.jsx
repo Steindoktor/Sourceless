@@ -28,17 +28,7 @@ const HUD = ({ score, levelName, progress, isPlacing, highlightedHouse, showSwit
           </div>
         )}
         
-        {/* Interaction hint */}
-        {highlightedHouse && (
-          <div className={`absolute ${isMobile ? 'top-8' : 'top-12'} left-1/2 transform -translate-x-1/2 whitespace-nowrap`}>
-            <div className={`bg-black/90 backdrop-blur-sm border border-[#00FF88] rounded-lg ${isMobile ? 'px-3 py-1' : 'px-4 py-2'}`}>
-              <span className={`text-[#00FF88] font-bold ${isMobile ? 'text-sm' : ''}`}>
-                {isMobile ? '[Grüner Button]' : '[E / Leertaste]'}
-              </span>
-              <span className={`text-white ml-2 ${isMobile ? 'text-xs' : ''}`}>Internet-Kasten anbringen</span>
-            </div>
-          </div>
-        )}
+        {/* Kein Interaktions-Hinweis mehr - automatisch beim Berühren! */}
 
         {isPlacing && (
           <div className="absolute top-12 left-1/2 transform -translate-x-1/2">
