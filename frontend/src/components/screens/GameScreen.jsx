@@ -74,11 +74,13 @@ const GameScreen = ({ onQuit }) => {
   };
 
   const handleRestart = () => {
+    // Kompletter Reset
     playerMovement.exitPointerLock();
     playerMovement.setPosition(new THREE.Vector3(0, 0, 0));
     playerMovement.setRotation(0);
     processedHousesRef.current.clear(); // Reset processed houses
-    startGame();
+    setSceneData({ houses: [], npcs: [], onlineHouses: new Set() }); // Clear scene data
+    startGame(); // Reset game state
   };
 
   const handleLevelComplete = () => {
