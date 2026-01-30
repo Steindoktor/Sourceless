@@ -298,7 +298,6 @@ const GameScreen = ({ onQuit }) => {
             enabled={true}
           />
           <MobileControls
-            onInteract={handleMobileInteract}
             onSprint={handleMobileSprint}
             enabled={true}
           />
