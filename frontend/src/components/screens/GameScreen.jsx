@@ -161,7 +161,7 @@ const GameScreen = ({ onQuit }) => {
         cancelAnimationFrame(requestAnimationFrameId.current);
       }
     };
-  }, [gameState, playerMovement, isMobile, mobileVelocity, mobileSprintActive, sceneData.houses]);
+  }, [gameState, playerMovement, isMobile, mobileVelocity, mobileSprintActive, sceneData.houses, sceneData.onlineHouses, handleInteract]);
 
   // Check for nearby houses to highlight
   useEffect(() => {
