@@ -238,6 +238,7 @@ const Scene = ({
   const [switchActive, setSwitchActive] = useState(false);
   const [showSwitch, setShowSwitch] = useState(false);
   const interactKeyPressed = useRef(false);
+  const processedHouses = useRef(new Set()); // Track welche Häuser bereits verarbeitet wurden
   
   // Schalter-Position abhängig vom Level
   const switchPosition = useMemo(() => {
