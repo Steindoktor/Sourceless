@@ -204,11 +204,6 @@ const GameScreen = ({ onQuit }) => {
     }, GAME_CONFIG.PLACEMENT_DURATION);
   };
 
-  const handleLevelComplete = () => {
-    // Level completed! Move to next level
-    completeLevel();
-  };
-
   // Mobile joystick handler
   const handleJoystickMove = (joystickData) => {
     if (gameState !== 'playing') return;
