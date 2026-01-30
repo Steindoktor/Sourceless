@@ -434,36 +434,9 @@ const Scene = ({
     };
   }, [highlightedHouse, onInteract, gameState, onlineHouses, showSwitch, switchActive, goldenHouses, playerPosition, currentLevel, onLevelComplete]);
 
-  // Check for collision and auto-interact
+  // Check for nearby houses (highlight detection only - NO auto-interact here!)
   useFrame(() => {
-    if (!playerPosition || gameState !== 'playing' || goldenHouses) return;
-
-    // Check collision with houses
-    houses.forEach(house => {
-      const distance = playerPosition.distanceTo(house.position);
-      
-      // Automatische Interaktion beim Nahkommen
-      // WICHTIG: Nur wenn noch nicht verarbeitet!
-      if (distance < GAME_CONFIG.HOUSE.INTERACT_RADIUS && 
-          !onlineHouses.has(house.id) && 
-          !processedHouses.current.has(house.id)) {
-        
-        // Sofort als verarbeitet markieren (verhindert Mehrfach-Trigger)
-        processedHouses.current.add(house.id);
-        
-        // State update
-        setOnlineHouses(prev => new Set([...prev, house.id]));
-        
-        // Play sounds
-        soundManager.playPlacement();
-        setTimeout(() => {
-          soundManager.playHouseOnline();
-        }, 800);
-        
-        // Notify parent
-        onInteract();
-      }
-    });
+    if (!playerPosition || gameState !== 'playing') return;
 
     // Highlight closest house (für visuelles Feedback)
     let closestHouse = null;
