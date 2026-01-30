@@ -79,7 +79,10 @@ const GameScreen = ({ onQuit }) => {
     playerMovement.setPosition(new THREE.Vector3(0, 0, 0));
     playerMovement.setRotation(0);
     processedHousesRef.current.clear(); // Reset processed houses
-    setSceneData({ houses: [], npcs: [], onlineHouses: new Set() }); // Clear scene data
+    
+    // Force Scene re-mount by changing key
+    setSceneData({ houses: [], npcs: [], onlineHouses: new Set(), forceRemount: Math.random() });
+    
     startGame(); // Reset game state
   };
 
