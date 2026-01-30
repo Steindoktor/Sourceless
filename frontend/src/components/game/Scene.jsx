@@ -379,7 +379,7 @@ const Scene = ({
     }
   }, [onlineHouses, currentLevel, showSwitch, goldenHouses]);
 
-  // Handle interaction
+  // Handle switch interaction (nur noch Schalter, keine Häuser mehr)
   useEffect(() => {
     const handleKeyDown = (e) => {
       // Check if E or Space is pressed
@@ -406,21 +406,7 @@ const Scene = ({
                 onLevelComplete();
               }
             }, 3000);
-            return;
           }
-        }
-        
-        // Normal house interaction
-        if (highlightedHouse && !onlineHouses.has(highlightedHouse.id) && !goldenHouses) {
-          setOnlineHouses(prev => new Set([...prev, highlightedHouse.id]));
-          
-          // Play sounds
-          soundManager.playPlacement();
-          setTimeout(() => {
-            soundManager.playHouseOnline();
-          }, 800);
-          
-          onInteract();
         }
       }
     };
