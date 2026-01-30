@@ -113,6 +113,26 @@ const GameScreen = ({ onQuit }) => {
 
         sceneData.houses?.forEach(house => {
           const distance = newPosition.distanceTo(house.position);
+          
+          // AUTO-INTERACT: Prüfe ob nah genug und noch nicht verarbeitet
+          if (distance < GAME_CONFIG.HOUSE.INTERACT_RADIUS && 
+              !sceneData.onlineHouses?.has(house.id) && 
+              !processedHousesRef.current.has(house.id)) {
+            
+            // Markiere sofort als verarbeitet
+            processedHousesRef.current.add(house.id);
+            
+            // Trigger Interaktion
+            handleInteract();
+            
+            // Play sounds
+            soundManager.playPlacement();
+            setTimeout(() => {
+              soundManager.playHouseOnline();
+            }, 800);
+          }
+          
+          // KOLLISION: Blockiere Spieler wenn zu nah
           const minDistance = GAME_CONFIG.HOUSE.COLLISION_RADIUS + GAME_CONFIG.PLAYER.RADIUS;
           
           if (distance < minDistance) {
