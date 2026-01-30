@@ -10,10 +10,12 @@ const MainMenu = ({ onStart }) => {
           <h1 className="text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00FF88] to-[#00DD77] animate-pulse">
             Connect The World
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Bringe Internet-Kästen an Häuser an und vernetze die Welt.
-            Aber Vorsicht vor den Regierungsbeamten!
-          </p>
+          <div className="text-xl text-gray-300 max-w-2xl mx-auto space-y-2">
+            <p className="font-bold text-[#00FF88]">Ein neues Internet entsteht.</p>
+            <p>Dezentral. Sicher. Ohne Kontrolle von oben.</p>
+            <p className="text-base mt-3">Deine Aufgabe: Infrastruktur schaffen, Gebäude vernetzen, Reichweite aufbauen.</p>
+            <p className="text-yellow-500 text-sm">Störfaktor: staatliche Kontrolle.</p>
+          </div>
         </div>
 
         {/* Glowing box effect */}
