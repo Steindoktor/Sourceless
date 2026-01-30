@@ -26,7 +26,8 @@ export const GAME_CONFIG = {
     DEPTH: 4,
     SPACING: 8,
     ROWS_PER_SIDE: 10,
-    COLLISION_RADIUS: 3, // Radius für Kollisionserkennung
+    COLLISION_RADIUS: 2.5, // Kleiner - damit man nah genug kommt
+    INTERACT_RADIUS: 3.5,  // Größer als Kollision - Interaktion VOR Blockierung
   },
   
   // NPC/Beamte settings
