@@ -12,8 +12,8 @@ export const GAME_CONFIG = {
   
   // Camera settings
   CAMERA: {
-    DISTANCE: 8,
-    HEIGHT: 4,
+    DISTANCE: 15,  // Weiter weg (war 8)
+    HEIGHT: 12,    // Viel höher (war 4)
     FOV: 60,
     MIN_POLAR: Math.PI / 6,
     MAX_POLAR: Math.PI / 2.5,
