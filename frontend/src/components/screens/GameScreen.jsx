@@ -249,13 +249,6 @@ const GameScreen = ({ onQuit }) => {
     endGame('Du wurdest von einem Regierungsbeamten verhaftet!');
   };
 
-  const handleRestart = () => {
-    playerMovement.exitPointerLock();
-    playerMovement.setPosition(new THREE.Vector3(0, 0, 0));
-    playerMovement.setRotation(0);
-    startGame();
-  };
-
   // Request pointer lock on canvas click
   const handleCanvasClick = () => {
     if (gameState === 'playing') {
