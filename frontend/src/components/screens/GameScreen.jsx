@@ -56,6 +56,7 @@ const GameScreen = ({ onQuit }) => {
   // Start game on mount
   useEffect(() => {
     startGame();
+    processedHousesRef.current.clear(); // Reset beim Start
   }, [startGame]);
 
   // Handle pause key
