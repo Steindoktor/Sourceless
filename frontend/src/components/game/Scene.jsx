@@ -444,10 +444,31 @@ const Scene = ({
     };
   }, [highlightedHouse, onInteract, gameState, onlineHouses, showSwitch, switchActive, goldenHouses, playerPosition, currentLevel, onLevelComplete]);
 
-  // Check for nearby houses (highlight detection)
+  // Check for collision and auto-interact
   useFrame(() => {
-    if (!playerPosition || gameState !== 'playing') return;
+    if (!playerPosition || gameState !== 'playing' || goldenHouses) return;
 
+    // Check collision with houses
+    houses.forEach(house => {
+      if (onlineHouses.has(house.id)) return;
+      
+      const distance = playerPosition.distanceTo(house.position);
+      
+      // Automatische Interaktion beim Berühren
+      if (distance < GAME_CONFIG.HOUSE.COLLISION_RADIUS && !onlineHouses.has(house.id)) {
+        setOnlineHouses(prev => new Set([...prev, house.id]));
+        
+        // Play sounds
+        soundManager.playPlacement();
+        setTimeout(() => {
+          soundManager.playHouseOnline();
+        }, 800);
+        
+        onInteract();
+      }
+    });
+
+    // Highlight closest house (für visuelles Feedback)
     let closestHouse = null;
     let minDistance = GAME_CONFIG.PLAYER.INTERACTION_RANGE;
 
