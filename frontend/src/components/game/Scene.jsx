@@ -442,24 +442,26 @@ const Scene = ({
     houses.forEach(house => {
       const distance = playerPosition.distanceTo(house.position);
       
-      // WICHTIG: Erst Auto-Interact prüfen (größerer Radius)
-      // Dann erst Kollision (kleinerer Radius)
-      
       // Automatische Interaktion beim Nahkommen
-      if (distance < GAME_CONFIG.HOUSE.INTERACT_RADIUS && !onlineHouses.has(house.id)) {
-        setOnlineHouses(prev => {
-          if (prev.has(house.id)) return prev; // Bereits online
-          const newSet = new Set([...prev, house.id]);
-          
-          // Play sounds
-          soundManager.playPlacement();
-          setTimeout(() => {
-            soundManager.playHouseOnline();
-          }, 800);
-          
-          onInteract();
-          return newSet;
-        });
+      // WICHTIG: Nur wenn noch nicht verarbeitet!
+      if (distance < GAME_CONFIG.HOUSE.INTERACT_RADIUS && 
+          !onlineHouses.has(house.id) && 
+          !processedHouses.current.has(house.id)) {
+        
+        // Sofort als verarbeitet markieren (verhindert Mehrfach-Trigger)
+        processedHouses.current.add(house.id);
+        
+        // State update
+        setOnlineHouses(prev => new Set([...prev, house.id]));
+        
+        // Play sounds
+        soundManager.playPlacement();
+        setTimeout(() => {
+          soundManager.playHouseOnline();
+        }, 800);
+        
+        // Notify parent
+        onInteract();
       }
     });
 
