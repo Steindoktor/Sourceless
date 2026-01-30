@@ -59,6 +59,33 @@ const GameScreen = ({ onQuit }) => {
     processedHousesRef.current.clear(); // Reset beim Start
   }, [startGame]);
 
+  // Define handleInteract with useCallback BEFORE useEffect that uses it
+  const handleInteract = useCallback(() => {
+    setIsPlacing(true);
+    setTimeout(() => {
+      setIsPlacing(false);
+      incrementScore();
+    }, GAME_CONFIG.PLACEMENT_DURATION);
+  }, [incrementScore, setIsPlacing]);
+
+  const handleGameOver = () => {
+    playerMovement.exitPointerLock();
+    endGame('Du wurdest von einem Regierungsbeamten verhaftet!');
+  };
+
+  const handleRestart = () => {
+    playerMovement.exitPointerLock();
+    playerMovement.setPosition(new THREE.Vector3(0, 0, 0));
+    playerMovement.setRotation(0);
+    processedHousesRef.current.clear(); // Reset processed houses
+    startGame();
+  };
+
+  const handleLevelComplete = () => {
+    // Level completed! Move to next level
+    completeLevel();
+  };
+
   // Handle pause key
   useEffect(() => {
     const handleKeyDown = (e) => {
