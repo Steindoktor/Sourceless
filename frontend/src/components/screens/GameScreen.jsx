@@ -196,14 +196,6 @@ const GameScreen = ({ onQuit }) => {
     // For now, simplified distance check will be in Scene
   }, [playerMovement.position]);
 
-  const handleInteract = () => {
-    setIsPlacing(true);
-    setTimeout(() => {
-      setIsPlacing(false);
-      incrementScore();
-    }, GAME_CONFIG.PLACEMENT_DURATION);
-  };
-
   // Mobile joystick handler
   const handleJoystickMove = (joystickData) => {
     if (gameState !== 'playing') return;
